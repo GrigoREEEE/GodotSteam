@@ -18,6 +18,7 @@ func _on_button_pressed():
 	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC)
 	multiplayer.multiplayer_peer = peer
 	ms.spawn("res://level.tscn")
+	send_player_information(GameManager.steam_username, GameManager.steam_id)
 	$Button.hide()
 	$Lobby_Container/Lobbies.hide()
 	$Refresh.hide()
@@ -26,9 +27,11 @@ func join_lobby(id):
 	peer.connect_lobby(id)
 	multiplayer.multiplayer_peer = peer
 	lobby_id = id
+	send_player_information.rpc_id(1, $LineEdit.text, multiplayer.get_unique_id())
 	$Button.hide()
 	$Lobby_Container/Lobbies.hide()
 	$Refresh.hide()
+	
 
 func _on_lobby_created(connect, id):
 	if connect:
@@ -40,6 +43,8 @@ func _on_lobby_created(connect, id):
 func open_lobby_list():
 	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
 	Steam.requestLobbyList()
+
+
 	
 func _on_lobby_match_list(lobbies):
 	for lobby in lobbies:
@@ -58,3 +63,16 @@ func _on_refresh_pressed():
 	if $Lobby_Container/Lobbies.get_child_count() > 0:
 		for n in $Lobby_Container/Lobbies.get_children():
 			n.queue_free()
+
+@rpc("any_peer")
+func send_player_information(name, id):
+	if !GameManager.players.has(id):
+		GameManager.players[id] = {
+			"name" : name,
+			"id" : id,
+			"score": 0
+		}
+	
+	if multiplayer.is_server():
+		for i in GameManager.players:
+			send_player_information.rpc(GameManager.players[i].name, i)

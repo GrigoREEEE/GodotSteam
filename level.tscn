@@ -12,6 +12,6 @@ player_scene = ExtResource("2_jy1ag")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = 8.0
-offset_top = 233.0
+offset_top = 305.0
 offset_right = 1160.0
 offset_bottom = 642.0
