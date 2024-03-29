@@ -51,7 +51,7 @@ func _on_button_pressed():
 	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC)
 	multiplayer.multiplayer_peer = peer
 	ms.spawn("res://level.tscn")
-	send_player_information(GameManager.steam_username, GameManager.steam_id, )
+	send_player_information(GameManager.steam_username, multiplayer.get_unique_id())
 	$Button.hide()
 	$Lobby_Container/Lobbies.hide()
 	$Refresh.hide()
@@ -75,7 +75,7 @@ func _on_lobby_created(connect, id):
 
 func _on_lobby_joined():
 	print(peer.get_all_lobby_data())
-	send_player_information.rpc_id(1, $LineEdit.text, multiplayer.get_unique_id())
+	send_player_information.rpc_id(1, GameManager.steam_username, multiplayer.get_unique_id())
 	pass
 
 func open_lobby_list():
