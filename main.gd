@@ -5,10 +5,43 @@ var peer = SteamMultiplayerPeer.new()
 @onready var ms = $MultiplayerSpawner
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	signal_connect()
+	open_lobby_list()
 	ms.spawn_function = spawn_level
+	
+
+func signal_connect():
+	peer.lobby_joined.connect(_on_lobby_joined)
 	peer.lobby_created.connect(_on_lobby_created)
 	Steam.lobby_match_list.connect(_on_lobby_match_list)
-	open_lobby_list()
+	
+	multiplayer.peer_connected.connect(peer_connected)
+	multiplayer.peer_disconnected.connect(peer_disconnected)
+	multiplayer.connected_to_server.connect(connected_to_server)
+	multiplayer.connection_failed.connect(connection_failed)
+	
+
+# this get called on the server and clients
+func peer_connected(id):
+	print("Player Connected " + str(id))
+	
+# this get called on the server and clients
+func peer_disconnected(id):
+	print("Player Disconnected " + str(id))
+	GameManager.players.erase(id)
+	var players = get_tree().get_nodes_in_group("Player")
+	for i in players:
+		if i.name == str(id):
+			i.queue_free()
+	
+# called only from clients
+func connected_to_server():
+	print("connected To Sever!")
+	#send_player_information.rpc_id(1, $LineEdit.text, multiplayer.get_unique_id())
+
+# called only from clients
+func connection_failed():
+	print("Couldnt Connect")
 
 func spawn_level(data):
 	var a = (load(data) as PackedScene).instantiate()
@@ -18,7 +51,7 @@ func _on_button_pressed():
 	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC)
 	multiplayer.multiplayer_peer = peer
 	ms.spawn("res://level.tscn")
-	send_player_information(GameManager.steam_username, GameManager.steam_id)
+	send_player_information(GameManager.steam_username, GameManager.steam_id, )
 	$Button.hide()
 	$Lobby_Container/Lobbies.hide()
 	$Refresh.hide()
@@ -27,7 +60,7 @@ func join_lobby(id):
 	peer.connect_lobby(id)
 	multiplayer.multiplayer_peer = peer
 	lobby_id = id
-	send_player_information.rpc_id(1, $LineEdit.text, multiplayer.get_unique_id())
+	send_player_information.rpc_id(1, GameManager.steam_username, multiplayer.get_unique_id())
 	$Button.hide()
 	$Lobby_Container/Lobbies.hide()
 	$Refresh.hide()
@@ -39,6 +72,11 @@ func _on_lobby_created(connect, id):
 		Steam.setLobbyData(lobby_id, "name", str(Steam.getPersonaName() + "'s Lobby"))
 		Steam.setLobbyJoinable(lobby_id, true)
 		print(lobby_id)
+
+func _on_lobby_joined():
+	print(peer.get_all_lobby_data())
+	send_player_information.rpc_id(1, $LineEdit.text, multiplayer.get_unique_id())
+	pass
 
 func open_lobby_list():
 	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)

@@ -6,6 +6,7 @@ const SPEED = 300.0
 
 func _ready():
 	cam.enabled = is_multiplayer_authority()
+	$Label.text = GameManager.steam_username
 
 func _physics_process(delta):
 	if !is_multiplayer_authority():

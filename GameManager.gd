@@ -6,6 +6,8 @@ var player_choices = {}
 
 var order = 0
 
+var host_id : Dictionary = {1:1}
+
 var is_on_steam_deck: bool = false
 var is_online: bool = false
 var steam_app_id: int = 480

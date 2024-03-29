@@ -27,3 +27,10 @@ shape = SubResource("RectangleShape2D_wgy1u")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_4fjnm")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -64.0
+offset_top = -90.0
+offset_right = 66.0
+offset_bottom = -64.0
+text = "Name"
