@@ -54,7 +54,7 @@ func _on_lobby_created(connect, id):
 func _on_lobby_joined():
 	print(peer.get_all_lobby_data())
 	#send_player_information.rpc_id(1, GameManager.steam_username, multiplayer.get_unique_id())
-	send_player_information.rpc_id(1, GameManager.steam_username, multiplayer.get_unique_id())
+	#send_player_information.rpc_id(1, GameManager.steam_username, multiplayer.get_unique_id())
 	pass
 
 func open_lobby_list():
@@ -83,6 +83,7 @@ func _on_refresh_pressed():
 
 @rpc("any_peer")
 func send_player_information(name, id):
+	print("Sending info - my name is " + str(name) + ", and my unique id is " + str(id))
 	if !GameManager.players.has(id):
 		GameManager.players[id] = {
 			"name" : name,
