@@ -35,6 +35,7 @@ func _on_button_pressed():
 	$Refresh.hide()
 	
 func join_lobby(id):
+	print("Attempting to join lobby!")
 	peer.connect_lobby(id)
 	multiplayer.multiplayer_peer = peer
 	lobby_id = id
@@ -52,6 +53,7 @@ func _on_lobby_created(connect, id):
 		print(lobby_id)
 
 func _on_lobby_joined():
+	print("Joined lobby!")
 	print(peer.get_all_lobby_data())
 	#send_player_information.rpc_id(1, GameManager.steam_username, multiplayer.get_unique_id())
 	#send_player_information.rpc_id(1, GameManager.steam_username, multiplayer.get_unique_id())
