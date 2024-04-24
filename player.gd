@@ -12,7 +12,7 @@ func _ready():
 	#$Label.text = GameManager.players[multiplayer.get_unique_id()].name
 	print("My steam id is: " + str(GameManager.steam_id))
 	
-
+@rpc("any_peer")
 func send_player_information(name, id):
 	print("Sending info - my name is " + str(name) + ", and my unique id is " + str(id))
 	if !GameManager.players.has(id):
@@ -25,6 +25,7 @@ func send_player_information(name, id):
 	if multiplayer.is_server():
 		for i in GameManager.players:
 			send_player_information.rpc(GameManager.players[i].name, i)
+
 
 func _physics_process(delta):
 	if !is_multiplayer_authority():
