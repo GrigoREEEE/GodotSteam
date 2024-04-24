@@ -29,7 +29,7 @@ func _on_button_pressed():
 	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC)
 	multiplayer.multiplayer_peer = peer
 	ms.spawn("res://level.tscn")
-	#send_player_information(GameManager.steam_username, multiplayer.get_unique_id())
+	send_player_information(GameManager.steam_username, multiplayer.get_unique_id())
 	$Button.hide()
 	$Lobby_Container/Lobbies.hide()
 	$Refresh.hide()
