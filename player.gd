@@ -1,16 +1,26 @@
 extends CharacterBody2D
 
-
 const SPEED = 300.0
 @onready var cam = $Camera2D
 
 func _ready():
-	cam.enabled = is_multiplayer_authority()
-	send_player_information.rpc_id(1, GameManager.steam_username, multiplayer.get_unique_id())
-	await get_tree().create_timer(5).timeout
 	print(GameManager.players)
-	#$Label.text = GameManager.players[multiplayer.get_unique_id()].name
+	GameManager.my_id = multiplayer.get_unique_id()
+	cam.enabled = is_multiplayer_authority()
+	send_player_information.rpc_id(1, GameManager.steam_username, multiplayer.get_unique_id(), self)
+	await get_tree().create_timer(1).timeout
+	print(GameManager.players)
+	print(GameManager.players[1])
+	if (GameManager.my_id == 1):
+		GameManager.players[1]["body"] = self
+		print("a")
+	player_names()
 	print("My steam id is: " + str(GameManager.steam_id))
+
+func player_names():
+	for _i in GameManager.players:
+		GameManager.players[_i]["body"].get_node("Label").text = GameManager.players[_i]["name"]
+		
 	
 @rpc("any_peer")
 func send_player_information(name, id):
@@ -19,7 +29,8 @@ func send_player_information(name, id):
 		GameManager.players[id] = {
 			"name" : name,
 			"id" : id,
-			"score": 0
+			"score": 0,
+			"body": null
 		}
 	
 	if multiplayer.is_server():

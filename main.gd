@@ -5,6 +5,7 @@ var peer = SteamMultiplayerPeer.new()
 @onready var ms = $MultiplayerSpawner
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	GameManager.my_id = multiplayer.get_unique_id()
 	signal_connect()
 	open_lobby_list()
 	ms.spawn_function = spawn_level
@@ -28,7 +29,7 @@ func spawn_level(data):
 func _on_button_pressed():
 	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC)
 	multiplayer.multiplayer_peer = peer
-	ms.spawn("res://level.tscn")
+	ms.spawn("res://screen.tscn")
 	send_player_information(GameManager.steam_username, multiplayer.get_unique_id())
 	$Button.hide()
 	$Lobby_Container/Lobbies.hide()
@@ -90,7 +91,8 @@ func send_player_information(name, id):
 		GameManager.players[id] = {
 			"name" : name,
 			"id" : id,
-			"score": 0
+			"score": 0,
+			"player_body": null
 		}
 	
 	if multiplayer.is_server():

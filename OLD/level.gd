@@ -2,18 +2,18 @@ extends Node
 
 
 @rpc("any_peer")
-func send_player_information(name, id):
+func send_data(name, id, type, choice):
 	print("Sending info - my name is " + str(name) + ", and my unique id is " + str(id))
-	if !GameManager.players.has(id):
-		GameManager.players[id] = {
+	if !GameManager.player_choices.has(id):
+		GameManager.player_choices[id] = {
 			"name" : name,
 			"id" : id,
-			"score": 0
+			type : choice
 		}
 	
 	if multiplayer.is_server():
-		for i in GameManager.players:
-			send_player_information.rpc(GameManager.players[i].name, i)
+		for i in GameManager.player_choices:
+			send_data.rpc(GameManager.players[i].name, i)
 
 func _on_button_pressed():
 	print(GameManager.players)

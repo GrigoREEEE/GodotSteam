@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://bfc5uui3aqpxg"]
+
+[ext_resource type="Script" path="res://word.gd" id="1_fxge3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cdeyv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mcke8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ylvd6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qeu88"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l5eys"]
+
+[node name="word" type="Label"]
+offset_right = 1.0
+offset_bottom = 23.0
+script = ExtResource("1_fxge3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+process_mode = 4
+visible = false
+layout_mode = 0
+color = Color(0.901961, 0.333333, 0.333333, 0.596078)
+
+[node name="Word_Select" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cdeyv")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mcke8")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ylvd6")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qeu88")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_l5eys")
+
+[connection signal="pressed" from="Word_Select" to="." method="_on_word_select_pressed"]

@@ -16,6 +16,7 @@ func _ready():
 func spawn_player(data):
 	var p = player_scene.instantiate()
 	p.set_multiplayer_authority(data)
+	print("Uh, oh, my unique ID is: " + str(GameManager.my_id))
 	players[data] = p
 	return p
 
