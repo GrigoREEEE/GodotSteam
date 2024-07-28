@@ -10,7 +10,6 @@ func _ready():
 	send_player_information.rpc_id(1, GameManager.steam_username, multiplayer.get_unique_id(), self)
 	await get_tree().create_timer(1).timeout
 	print(GameManager.players)
-	print(GameManager.players[1])
 	if (GameManager.my_id == 1):
 		GameManager.players[1]["body"] = self
 		print("a")

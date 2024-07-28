@@ -37,7 +37,7 @@ func _on_button_pressed():
 	
 func join_lobby(id):
 	print("Attempting to join lobby!")
-	#send_player_information.rpc_id(1, GameManager.steam_username, multiplayer.get_unique_id())
+	send_player_information.rpc_id(1, GameManager.steam_username, multiplayer.get_unique_id())
 	peer.connect_lobby(id)
 	multiplayer.multiplayer_peer = peer
 	lobby_id = id
