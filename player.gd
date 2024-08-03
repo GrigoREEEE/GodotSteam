@@ -4,17 +4,18 @@ const SPEED = 300.0
 @onready var cam = $Camera2D
 
 func _ready():
+	GameManager.display_name = GameManager.steam_username
 	print(GameManager.players)
 	GameManager.my_id = multiplayer.get_unique_id()
 	cam.enabled = is_multiplayer_authority()
-	send_player_information.rpc_id(1, GameManager.steam_username, multiplayer.get_unique_id(), self)
+	"""send_player_information.rpc_id(1, GameManager.steam_username, multiplayer.get_unique_id(), self)
 	await get_tree().create_timer(1).timeout
 	print(GameManager.players)
 	if (GameManager.my_id == 1):
 		GameManager.players[1]["body"] = self
 		print("a")
 	player_names()
-	print("My steam id is: " + str(GameManager.steam_id))
+	print("My steam id is: " + str(GameManager.steam_id))"""
 
 func player_names():
 	for _i in GameManager.players:
