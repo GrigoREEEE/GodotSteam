@@ -27,6 +27,19 @@ func _process(delta):
 	$Word_Count.text = str(word_count)
 	$Last_Character.text = current_last_char
 	
+@rpc("any_peer")
+func send_data(name, id, type, choice):
+	print("Sending info - my name is " + str(name) + ", and my unique id is " + str(id))
+	if !GameManager.player_choices.has(id):
+		GameManager.player_choices[id] = {
+			"name" : name,
+			"id" : id,
+			type : choice
+		}
+	
+	if multiplayer.is_server():
+		for i in GameManager.player_choices:
+			send_data.rpc(GameManager.players[i].name, i)
 
 func _on_generate_list_pressed():
 	var words_count = 3
@@ -93,24 +106,3 @@ func _on_submit_pressed():
 			assign_size(lab2)
 		print("Word " + _i + " has size " + str(word_size))
 		current_box.add_child(space)
-
-"""@rpc("any_peer")
-func send_player_information(name, id):
-	print("Sending info - my name is " + str(name) + ", and my unique id is " + str(id))
-	if !GameManager.players.has(id):
-		GameManager.players[id] = {
-			"name" : name,
-			"id" : id,
-			"score": 0,
-			"body": null
-		}
-	
-	if multiplayer.is_server():
-		for i in GameManager.players:
-			send_player_information.rpc(GameManager.players[i].name, i)
-
-func _on_printout_pressed():
-	print(GameManager.players)
-
-func _on_share_data_pressed():
-	send_player_information.rpc_id(1, GameManager.displayed_name, multiplayer.get_unique_id(), self)"""
