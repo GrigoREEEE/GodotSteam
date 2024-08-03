@@ -4,9 +4,9 @@ const SPEED = 300.0
 @onready var cam = $Camera2D
 
 func _ready():
-	GameManager.my_id = multiplayer.get_unique_id()
-	GameManager.displayed_name = GameManager.steam_username
-	cam.enabled = is_multiplayer_authority()
+	#GameManager.my_id = multiplayer.get_unique_id()
+	#GameManager.displayed_name = GameManager.steam_username
+	#cam.enabled = is_multiplayer_authority()
 	$Label.text = GameManager.displayed_name
 
 func player_names():
