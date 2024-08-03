@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://27m5y3i3kvia"]
+
+[ext_resource type="Script" path="res://player2.gd" id="1_t0hpp"]
+[ext_resource type="Texture2D" uid="uid://bxs1vflbfrodt" path="res://icon.svg" id="2_nkjnl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wgy1u"]
+size = Vector2(128, 128)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4fjnm"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Label:text")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="Player" type="CharacterBody2D" groups=["Players"]]
+position = Vector2(379, 276)
+script = ExtResource("1_t0hpp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_nkjnl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wgy1u")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_4fjnm")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -64.0
+offset_top = -90.0
+offset_right = 66.0
+offset_bottom = -64.0
+text = "Name"

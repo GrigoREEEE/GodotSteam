@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Screen.gd" id="1_o8gjo"]
 [ext_resource type="Script" path="res://LineEdit.gd" id="2_euhn2"]
 [ext_resource type="Script" path="res://MultiplayerSpawner.gd" id="3_hrbut"]
-[ext_resource type="PackedScene" uid="uid://b5yyvybc872jf" path="res://player.tscn" id="4_yfg5a"]
+[ext_resource type="PackedScene" uid="uid://27m5y3i3kvia" path="res://player2.tscn" id="4_emw4a"]
 
 [sub_resource type="FontFile" id="FontFile_ssb5r"]
 cache/0/16/0/ascent = 0.0
@@ -73,10 +73,27 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://player2.tscn")
 spawn_path = NodePath(".")
 script = ExtResource("3_hrbut")
-player_scene = ExtResource("4_yfg5a")
+player_scene = ExtResource("4_emw4a")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+
+[node name="Printout" type="Button" parent="."]
+offset_left = 703.0
+offset_top = 139.0
+offset_right = 810.0
+offset_bottom = 170.0
+scale = Vector2(2.05563, 2.80084)
+text = "sdsdaadsasd"
+
+[node name="Share_Data" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
 
 [connection signal="text_changed" from="LineEdit" to="LineEdit" method="_on_text_changed"]
 [connection signal="pressed" from="Generate_List" to="." method="_on_generate_list_pressed"]
 [connection signal="pressed" from="Submit" to="." method="_on_submit_pressed"]
+[connection signal="pressed" from="Printout" to="." method="_on_printout_pressed"]
+[connection signal="pressed" from="Share_Data" to="." method="_on_share_data_pressed"]

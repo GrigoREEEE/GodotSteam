@@ -17,3 +17,4 @@ var steam_app_id: int = 480
 var steam_id: int = 0
 var steam_username: String = ""
 
+var displayed_name = "biba2"
