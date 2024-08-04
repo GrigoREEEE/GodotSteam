@@ -77,6 +77,22 @@ spawn_path = NodePath(".")
 script = ExtResource("3_hrbut")
 player_scene = ExtResource("4_yfg5a")
 
+[node name="Send_Data" type="Button" parent="."]
+offset_left = 20.0
+offset_top = 515.0
+offset_right = 126.0
+offset_bottom = 615.0
+text = "Send Data"
+
+[node name="Printout" type="Button" parent="."]
+offset_left = 18.0
+offset_top = 384.0
+offset_right = 184.0
+offset_bottom = 491.0
+text = "Printout"
+
 [connection signal="text_changed" from="LineEdit" to="LineEdit" method="_on_text_changed"]
 [connection signal="pressed" from="Generate_List" to="." method="_on_generate_list_pressed"]
 [connection signal="pressed" from="Submit" to="." method="_on_submit_pressed"]
+[connection signal="pressed" from="Send_Data" to="." method="_on_send_data_pressed"]
+[connection signal="pressed" from="Printout" to="." method="_on_printout_pressed"]
