@@ -27,8 +27,8 @@ func _process(delta):
 	$Word_Count.text = str(word_count)
 	$Last_Character.text = current_last_char
 	
-@rpc("any_peer", "call_local")
-func send_player_information(name, id):
+@rpc("any_peer")
+func send_player_information(name, id, state):
 	print("Players")
 	print("Sending info - my name is " + str(name) + ", and my unique id is " + str(id))
 	if !GameManager.players.has(id):
@@ -38,10 +38,9 @@ func send_player_information(name, id):
 			"id" : id,
 		}
 	
-	if multiplayer.is_server():
+	if multiplayer.is_server() and state == 1:
 		for i in GameManager.players:
-			if i != multiplayer.get_unique_id():
-				send_player_information.rpc(GameManager.players[i].name, i)
+			send_player_information.rpc(GameManager.players[i].name, i, 0)
 
 func _on_generate_list_pressed():
 	var words_count = 3
@@ -111,7 +110,7 @@ func _on_submit_pressed():
 
 
 func _on_send_data_pressed():
-	send_player_information.rpc_id(1,GameManager.steam_username,multiplayer.get_unique_id())
+	send_player_information.rpc_id(1,GameManager.steam_username,multiplayer.get_unique_id(),1)
 
 
 func _on_printout_pressed():
