@@ -110,7 +110,10 @@ func _on_submit_pressed():
 
 
 func _on_send_data_pressed():
-	send_player_information(GameManager.steam_username,multiplayer.get_unique_id(),1)
+	if (multiplayer.get_unique_id() == 1):
+		send_player_information(GameManager.steam_username,multiplayer.get_unique_id(),1)
+	else:
+		send_player_information.rpc_id(1,GameManager.steam_username,multiplayer.get_unique_id(),1)
 
 
 func _on_printout_pressed():
