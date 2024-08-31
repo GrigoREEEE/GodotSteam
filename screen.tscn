@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Screen.gd" id="1_o8gjo"]
 [ext_resource type="Script" path="res://LineEdit.gd" id="2_euhn2"]
 [ext_resource type="Script" path="res://MultiplayerSpawner.gd" id="3_hrbut"]
-[ext_resource type="PackedScene" uid="uid://b5yyvybc872jf" path="res://player.tscn" id="4_yfg5a"]
+[ext_resource type="PackedScene" uid="uid://yysf1suxxc13" path="res://spectating_player.tscn" id="4_yjsqs"]
 
 [sub_resource type="FontFile" id="FontFile_ssb5r"]
 cache/0/16/0/ascent = 0.0
@@ -75,7 +75,7 @@ offset_bottom = 23.0
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath(".")
 script = ExtResource("3_hrbut")
-player_scene = ExtResource("4_yfg5a")
+player_scene = ExtResource("4_yjsqs")
 
 [node name="Send_Data" type="Button" parent="."]
 offset_left = 20.0
