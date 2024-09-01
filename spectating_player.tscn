@@ -4,3 +4,7 @@
 
 [node name="Spectating_Player" type="Node"]
 script = ExtResource("1_qvb1l")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
